@@ -77,6 +77,16 @@ class OwnerController {
 
 	@PostMapping("/owners/new")
 	public String processCreationForm(@Valid Owner owner, BindingResult result, RedirectAttributes redirectAttributes) {
+		if (owner.getFirstName() == null || owner.getFirstName().isBlank()) {
+			result.rejectValue("firstName", "required", "First name must not be empty");
+		}
+		if (owner.getLastName() == null || owner.getLastName().isBlank()) {
+			result.rejectValue("lastName", "required", "Last name must not be empty");
+		}
+		String telephone = owner.getTelephone();
+		if (telephone == null || !telephone.matches("\\d{10}")) {
+			result.rejectValue("telephone", "invalid", "Telephone must contain only digits and be exactly 10 characters");
+		}
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in creating the owner.");
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
