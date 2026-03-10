@@ -44,6 +44,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Arjen Poutsma
  * @author Michael Isvy
  * @author Wick Dynex
+ *  * adding small comment to trigger architecture scan
  */
 @Controller
 class OwnerController {
