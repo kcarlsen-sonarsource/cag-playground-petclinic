@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.owner;
 
-import java.util.ArrayList; // S1128: unused import
-import java.util.HashMap; // S1128: unused import
 import java.util.List;
 
 import org.springframework.data.domain.Page;
