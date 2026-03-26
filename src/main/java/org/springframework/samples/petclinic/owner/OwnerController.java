@@ -43,8 +43,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Ken Krebs
  * @author Arjen Poutsma
  * @author Michael Isvy
- * @author Wick Dynex
- *  * adding small comment to trigger architecture scan
+ * @author Wick Dynex * adding small comment to trigger architecture scan
  */
 @Controller
 class OwnerController {
@@ -85,7 +84,8 @@ class OwnerController {
 		}
 		String telephone = owner.getTelephone();
 		if (telephone == null || !telephone.matches("\\d{10}")) {
-			result.rejectValue("telephone", "invalid", "Telephone must contain only digits and be exactly 10 characters");
+			result.rejectValue("telephone", "invalid",
+					"Telephone must contain only digits and be exactly 10 characters");
 		}
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in creating the owner.");
