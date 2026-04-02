@@ -78,14 +78,14 @@ class OwnerController {
 	}
 
 	@PostMapping("/owners/new")
-	public String processCreationForm(@Valid Owner owner, BindingResult result, RedirectAttributes redirectAttributes) {
-		if (owner.getFirstName() == null || owner.getFirstName().isBlank()) {
+	public String processCreationForm(@Valid OwnerDto ownerDto, BindingResult result, RedirectAttributes redirectAttributes) {
+		if (ownerDto.getFirstName() == null || ownerDto.getFirstName().isBlank()) {
 			result.rejectValue("firstName", "required", "First name must not be empty");
 		}
-		if (owner.getLastName() == null || owner.getLastName().isBlank()) {
+		if (ownerDto.getLastName() == null || ownerDto.getLastName().isBlank()) {
 			result.rejectValue("lastName", "required", "Last name must not be empty");
 		}
-		String telephone = owner.getTelephone();
+		String telephone = ownerDto.getTelephone();
 		if (telephone == null || !telephone.matches("\\d{10}")) {
 			result.rejectValue("telephone", "invalid", "Telephone must contain only digits and be exactly 10 characters");
 		}
@@ -94,6 +94,12 @@ class OwnerController {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 		}
 
+		Owner owner = new Owner();
+		owner.setFirstName(ownerDto.getFirstName());
+		owner.setLastName(ownerDto.getLastName());
+		owner.setAddress(ownerDto.getAddress());
+		owner.setCity(ownerDto.getCity());
+		owner.setTelephone(ownerDto.getTelephone());
 		this.owners.save(owner);
 		redirectAttributes.addFlashAttribute("message", "New Owner Created");
 		return "redirect:/owners/" + owner.getId();
